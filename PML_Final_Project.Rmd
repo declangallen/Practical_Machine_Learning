@@ -52,7 +52,7 @@ dim(trainingSet)
 We wil also remove all of the fields that contain only "NA" for reasons similar towhy we removed values with low variance. From inspection of the dataset we will also remove the first 5 fields. They contain ID and logistical data that will not be relevant to our final prediction model.
 
 
-```{r, echo=FALSE}
+```{r echo=FALSE}
 cleantrainingSet <- trainingSet[, names(trainingSet)[sapply(trainingSet, function(x) !any(is.na(x)))>0.95]]
 CleantestSet <- testSet[, names(testSet)[sapply(testSet, function(x) !any(is.na(x)))>0.95]]
 
@@ -66,7 +66,7 @@ dim(cleantrainingSet)
 
 We use the cor() and corrplot() functions to plot a matrix of the data. This will help identify any specific correlations within the dataset using the very
 
-```{r, echo=FALSE}
+```{r echo=FALSE}
 corPlot<- cor(cleantrainingSet[,-54])
 corrplot(corPlot,method = "ellipse",type="lower",order="FPC",tl.cex=0.65)
 ```
@@ -77,7 +77,7 @@ corrplot(corPlot,method = "ellipse",type="lower",order="FPC",tl.cex=0.65)
 We then develop a model fit using random forset method on the clean training dataset.
 We use cross validation with 5 folds to give a better estimate of the training error. 
 
-```{r, echo=FALSE}
+```{r echo=TRUE}
 set.seed(1432)
 control <- trainControl(method="cv",number=5,verboseIter = FALSE)
 modFit <- train(classe~.,data=cleantrainingSet,method="rf",trainControl=control)
@@ -86,7 +86,7 @@ modFit$finalModel
 
 Now we predict on the test dataset that was partitioned from the initial training set.
 
-```{r, echo=FALSE}
+```{r echo=TRUE}
 prediction <- predict(modFit, CleantestSet )
 confusionMatrix(prediction,CleantestSet$classe)
 ```
@@ -97,7 +97,7 @@ Our accuracy rate of 99.75% with very high sensitivity and specificity rates.
 
 We finally use our prediction model on the Testing data set to predict which the activity class of each participant's exercise. 
 
-```{r,echo=FALSE}
+```{r echo=FALSE}
 predictTest <- predict(modFit, testing)
 predictTest
 ```
