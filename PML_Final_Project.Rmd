@@ -30,6 +30,7 @@ dim(training)
 
 ```
 
+
 ## 3 Clean and Break Data
 
 We begin by splitting the training dataset further into testing and training datasets.
