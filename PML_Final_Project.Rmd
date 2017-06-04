@@ -87,15 +87,18 @@ modFit$finalModel
 Now we predict on the test dataset that was partitioned from the initial training set.
 
 ```{r}
-prediction <- predict(modFit, CleantestSet$classe, type="class")
+prediction <- predict(modFit, CleantestSet )
 confusionMatrix(prediction,CleantestSet$classe)
 ```
 
+Our accuracy rate of 99.75% with very high sensitivity and specificity rates.
+
 ##6 Prediction on Test Data Set
 
+We finally use our prediction model on the Testing data set to predict which the activity class of each participant's exercise. 
 
 ```{r}
-predictTest <- predict(modFit, testing,type="class")
+predictTest <- predict(modFit, testing)
 predictTest
 ```
 
