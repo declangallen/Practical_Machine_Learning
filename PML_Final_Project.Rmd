@@ -1,8 +1,7 @@
 ---
 title: "Practical Machine Learning Course Project"
-output:
-  pdf_document: default
-  html_document: default
+output: html_document
+
 ---
 
 ##1 Introduction
@@ -81,7 +80,7 @@ corrplot(corPlot,method = "ellipse",type="lower",order="FPC",tl.cex=0.65)
 We then develop a model fit using random forset method on the clean training dataset.
 We use cross validation with 5 folds to give a better estimate of the training error. 
 
-```{r eval=FALSE}
+```{r}
 set.seed(1432)
 control <- trainControl(method="cv",number=5,verboseIter = FALSE)
 modFit <- train(classe~.,data=cleantrainingSet,method="rf",trainControl=control)
